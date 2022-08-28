@@ -29,6 +29,10 @@ def rotate(img,rot,x,y):
 rotatedImage = rotate(img,90,img.shape[1]/2,img.shape[0]/2)
 imshow("Rotated image",rotatedImage)
 
-flippedImage = cv.flip(img,-1)
-imshow('Flipped horizontal and vertical',flippedImage)
+flippedHorizontalVertical = cv.flip(img,-1)
+flippedHorizontal = cv.flip(img,1)
+flippedVertical = cv.flip(img,0)
+imshow('Flipped horizontal and vertical',flippedHorizontalVertical)
+imshow('Flipped horizontal',flippedHorizontal)
+imshow('Flipped vertical',flippedVertical)
 cv.waitKey(0)
