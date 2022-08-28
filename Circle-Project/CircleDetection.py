@@ -26,9 +26,9 @@ while True:
         print(circles)
         for i in circles[0,:]:
             cv.putText(frame,'# of circles : {numberofcircles}'.format(numberofcircles=circles[0].shape[0]),(frame.shape[0]-100,50),cv.FONT_HERSHEY_TRIPLEX,0.7,(255,0,255),1)
-            # draw the outer circle
+            cv.putText(frame,'C : {center}'.format(center=(i[0],i[1])),(i[0]-50,i[1]-50),cv.FONT_HERSHEY_COMPLEX,1,(160,8,10),1)
+            cv.putText(frame,'R : {radius}'.format(radius=i[2]),(i[0]-50,i[1]),cv.FONT_HERSHEY_COMPLEX,1,(160,8,10),1)
+            print('C : {center} \n R : {radius}'.format(center=(i[0],i[1]),radius=i[2]))
             cv.circle(frame,(i[0],i[1]),i[2],(0,255,0),2)
-            # draw the center of the circle
-            cv.circle(frame,(i[0],i[1]),2,(0,0,255),3)
     imshow('Original with circled circle',frame)
     if(cv.waitKey(10)&0xFF == ord('d')): break
