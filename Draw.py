@@ -1,7 +1,7 @@
 import numpy as np
 import cv2 as cv
 
-# np.zeros will return nd.array that has a shape of rows and column specified from the first 2 element of the argument shape. SInce Mat in cv not only it should a 2D array, but its element should contains 3 channel of color RGB, therefore each element in Mat is a array that has 3 element. Therefore it should be specified in the 3rd element in tuple of shape argument that it is an array of 3 element
+# np.zeros will return nd.array that has a shape of rows and column specified from the first 2 element of the argument shape. SInce Mat in cv not only it should a 2D array, but its element should contains 3 channel of color BGR, therefore each element in Mat is a array that has 3 element. Therefore it should be specified in the 3rd element in tuple of shape argument that it is an array of 3 element
 frame=np.zeros((500,500,3),dtype=np.uint8)
 cv.imshow('Blank',frame)
 
