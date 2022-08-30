@@ -13,8 +13,8 @@ cv.imshow('Circle',circle)
 # bitwise and operator simply multiply (AND operator) bit by bit to each channels of frame and circle
 # we can use anded to implement masking concept
 # the white template is the mask
-frameANDblank = cv.bitwise_and(frame,circle)
-cv.imshow('ANDed',frameANDblank)
+frameANDcircle = cv.bitwise_and(frame,circle)
+cv.imshow('ANDed',frameANDcircle)
 
 rectangle = cv.rectangle(blank.copy(),(255,100),(355,200),(255,255,255),cv.FILLED)
 cv.imshow('Rectangle',rectangle)
@@ -40,7 +40,7 @@ cv.imshow('Not Frame',NotFrame)
 
 # XOR bitwise operator will take XOR operator bit by bit between images
 circleXORRectangle = cv.bitwise_xor(circle,rectangle)
-# display the regions that only one of the shape allowed
+# display the regions that only on of the shape allowed
 cv.imshow('Circle XOR Rectangle',circleXORRectangle)
 
 cv.waitKey(0)
