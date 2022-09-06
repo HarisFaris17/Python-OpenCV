@@ -1,16 +1,23 @@
 import cv2 as cv
 import mediapipe as mp
 import time
-import pandas
-
-trainingDirectory = './training'
-
+import pandas as pd
+import numpy as np
+from CarAction import actionCar
+from HandTraining import trainingDirectory
 
 cap = cv.VideoCapture(0)
 cap.set(cv.CAP_PROP_FRAME_WIDTH,1280)
 cap.set(cv.CAP_PROP_FRAME_HEIGHT,720)
 hands = mp.solutions.hands
 now, prevTime = 0,0
+
+print('Choose what action data will be collected')
+[print(f'{id}. {action}') for id,action in enumerate(actionCar)]
+action=input()
+print(action)
+
+
 
 while True:
     ret, frame = cap.read()
@@ -22,7 +29,7 @@ while True:
     frame=cv.flip(frame,1)
     cv.imshow('Flipped',frame)
     # since mediapipe working in RGB format not BGR format, we need to convert the frame to RGB format
-    results = hands.Hands(True).process(cv.cvtColor(frame,cv.COLOR_BGR2RGB))
+    results = hands.Hands(False,1).process(cv.cvtColor(frame,cv.COLOR_BGR2RGB))
     print(results.multi_handedness)
     multiHandLandmarks = results.multi_hand_landmarks
     print(multiHandLandmarks)
@@ -39,12 +46,15 @@ while True:
             normy1 = max([landmark.y for landmark in landmarks])
             # therefore to crop the hand region we should multiply it with width/height to get the exact coordinate
             # the result of multiplication of width/height with normalized coordinate is float, but since the frame is a np array, and np array can only be accessed with int slice
+            
             x0 = int(width*normx0)
             x1 = int(width*normx1)
             y0 = int(height*normy0)
             y1 = int(height*normy1)
             print((x0,y0,x1,y1))
-            croppedHand = frame[y0:y1,x0:x1]
+            # sometimes when the hand is out of the frame, the detected coordinate of landmarks can be negative , hence the  slicing with below code will be wrong
+            # hence we should specify that when the coordinate is negative, the value should be 0
+            croppedHand = frame[y0 if y0 else 0:y1 if y1 else 0,x0 if x0 else 0:x1 if x0 else 0]
             cv.imshow('Hand',croppedHand)
 
             # we have to find the min-max normalized data for training, hence we should find the scale for every x and y coordinate
@@ -62,5 +72,5 @@ while True:
     if (cv.waitKey(25)&0xFF==ord('e')):break
 
 
-def modeData():
-    input('Choose what data it is used')
+# def modeData():
+    
