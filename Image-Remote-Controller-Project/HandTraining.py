@@ -1,6 +1,7 @@
 import cv2 as cv
 import mediapipe as mp
 import time
+import pandas
 
 trainingDirectory = './training'
 
@@ -39,17 +40,20 @@ while True:
             normy1 = max([landmark.y for landmark in landmarks])
             # therefore to crop the hand region we should multiply it with width/height to get the exact coordinate
             # the result of multiplication of width/height with normalized coordinate is float, but since the frame is a np array, and np array can only be accessed with int slice
-            # x0 = int(width*normx0)
-            # x1 = int(width*normx1)
-            # y0 = int(height*normy0)
-            # y1 = int(height*normy1)
+            x0 = int(width*normx0)
+            x1 = int(width*normx1)
+            y0 = int(height*normy0)
+            y1 = int(height*normy1)
             print((x0,y0,x1,y1))
             croppedHand = frame[y0:y1,x0:x1]
             cv.imshow('Hand',croppedHand)
-            # for lm in handLandmarks.landmark:
-            #     print(lm.x)
-            # hHand, wHand, 
-            # cropppedHands = 
+
+            # we have to find the min-max normalized data for training, hence we should find the scale for every x and y coordinate
+            scalexAxis = (normx1-normx0)
+            scaleyAxis = (normy1-normy0)
+            for landmark in landmarks:
+                scaledX = landmark.x*scalexAxis
+                scaledY = landmark.y*scaleyAxis
     
     # add fps to the frame
     now = time.time()
