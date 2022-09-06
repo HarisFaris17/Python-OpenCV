@@ -5,8 +5,6 @@ import pandas
 
 trainingDirectory = './training'
 
-# what the remote-controlled car can do
-doCar = ['turnLeft','turnRight','straight','backLeft','backRight','back']
 
 cap = cv.VideoCapture(0)
 cap.set(cv.CAP_PROP_FRAME_WIDTH,1280)
@@ -64,5 +62,5 @@ while True:
     if (cv.waitKey(25)&0xFF==ord('e')):break
 
 
-def modeTraining():
-    
+def modeData():
+    input('Choose what data it is used')
