@@ -13,6 +13,7 @@ cap.set(cv.CAP_PROP_FRAME_WIDTH,1280)
 cap.set(cv.CAP_PROP_FRAME_HEIGHT,720)
 hands = mp.solutions.hands
 now, prevTime = 0,0
+
 while True:
     ret, frame = cap.read()
     if(not ret): break
@@ -61,3 +62,7 @@ while True:
     prevTime=time.time()
     cv.imshow('Frame with hand landmarks and fps',frame)
     if (cv.waitKey(25)&0xFF==ord('e')):break
+
+
+def modeTraining():
+    
