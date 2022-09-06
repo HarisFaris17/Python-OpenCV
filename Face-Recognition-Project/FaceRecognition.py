@@ -7,6 +7,8 @@ trainingPath = f'{datasetPath}\Training'
 people = os.listdir(trainingPath)
 
 cap = cv.VideoCapture(0)
+cap.set(cv.CAP_PROP_FRAME_HEIGHT,1024)
+cap.set(cv.CAP_PROP_FRAME_WIDTH,1280)
 faceRecognizer = cv.face.LBPHFaceRecognizer_create()
 faceRecognizer.read('Face-Recognition-Project/TrainedModel.xml')
 
@@ -15,6 +17,7 @@ faceDetector.load('Face-Recognition-Project/FaceDetection.xml')
 
 while True:
     ret, frame = cap.read()
+    frame=cv.resize(frame,(0,0),fx=0.5,fy=0.5)
     if (not ret) : exit(0)
     cv.imshow('Original',frame)
     gray = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
