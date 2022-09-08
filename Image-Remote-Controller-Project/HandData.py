@@ -22,7 +22,7 @@ while True:
     try:
         namePNGs = os.listdir(trainingDirectory+'/'+actionCar[action])
         print(namePNGs)
-        indexLastPNG = namePNGs[-1].split('.')[0] if len(namePNGs)>0 else 0
+        indexLastPNG = int(namePNGs[-1].split('.')[0]) if len(namePNGs)>0 else 0
     except:
         # if the folder doesn't exist, create the folder
         os.makedirs(trainingDirectory+'/'+actionCar[action])
@@ -121,8 +121,8 @@ while True:
                                 file.write(str(action))
                                 file.write('\n')
                             else : file.write(',')
-                indexLastPNG+=1
-                cv.imwrite(f'{trainingDirectory}/{actionCar[action]}/{indexLastPNG}.png',copyFrame)
+                    indexLastPNG+=1
+                    cv.imwrite(f'{trainingDirectory}/{actionCar[action]}/{indexLastPNG}.png',copyFrame)
         if (keyPressed==ord('e')):
             cv.destroyAllWindows()
             file.close()
