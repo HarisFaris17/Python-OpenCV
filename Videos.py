@@ -1,4 +1,3 @@
-import fractions
 import cv2 as cv
 capture = cv.VideoCapture(0)
 capture2 = cv.VideoCapture(1)
