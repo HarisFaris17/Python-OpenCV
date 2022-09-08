@@ -1,3 +1,4 @@
+import pickle
 import numpy as np
 trainingDirectory = './Image-Remote-Controller-Project/training'
 dataTrainingDirectory = '/data.txt'
@@ -20,4 +21,6 @@ if __name__=='__main__':
     classifier = RandomForestClassifier(10,criterion='entropy',random_state=0)
     classifier.fit(x_train,y_train)
     print([classifier.predict(x_test),y_test])
-
+    print(classifier.score(x_test,y_test))
+    # dump will save the obj to the file directory. The file will be created (if there is no such file before) and the file will be opened as write byte. This have to be wb, since the obj (classifier) is bytes not texts
+    pickle.dump(classifier,open(f'{trainingDirectory}/model_hand.sav','wb'))
