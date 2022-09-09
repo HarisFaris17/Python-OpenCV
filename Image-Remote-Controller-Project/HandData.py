@@ -79,7 +79,8 @@ while True:
                 croppedHand = frame[y0 if y0>0 else 0:y1 if y1>0 else 0,x0 if x0>0 else 0:x1 if x0>0 else 0]
                 cv.imshow('Hand',croppedHand)
 
-                # we have to find the min-max normalized data for training, hence we should find the scale for every x and y coordinate
+                # we have to find the min-max normalized data for training, since the width and height of can be vary for normalized coordinate of landmarks. The other reason is the hand can be close or far to the camera, which makes landmarks coordinate distributions can be small or high. hence we should take min-max normalization hence distance of hand and the width/height doesn't have any effect. 
+                # find the scale for every x and y coordinate
                 scalexAxis = (normx1-normx0)
                 scaleyAxis = (normy1-normy0)
                 for landmark in landmarks:
@@ -94,7 +95,7 @@ while True:
         prevTime=time.time()
         cv.imshow('Frame with hand landmarks and fps',frame)
         keyPressed = cv.waitKey(25)
-        # if the landmark want to be captured, hence the captured landmark can be used as training data
+        # if the landmark captured, the captured landmark can be used as training data
         if(keyPressed==ord('c')) : 
                 if multiHandLandmarks:
                     for handLandmarks in multiHandLandmarks:
