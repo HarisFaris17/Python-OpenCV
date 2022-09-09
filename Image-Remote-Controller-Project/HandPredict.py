@@ -4,6 +4,7 @@ import mediapipe as mp
 import numpy as np
 from HandTraining import trainingDirectory,modelHandDirectory
 from sklearn.ensemble import RandomForestClassifier
+from CarAction import actionCar
 
 cap = cv.VideoCapture(0)
 cap.set(cv.CAP_PROP_FRAME_WIDTH,1280)
@@ -55,5 +56,5 @@ while True:
         print(flatLandmark)
         print(f'flatlandmarks : {x}')
 
-        print(classifier.predict(x))
+        print(actionCar[classifier.predict(x)[0]])
     if(cv.waitKey(25)==ord('e')): break
