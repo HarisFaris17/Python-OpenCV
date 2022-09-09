@@ -29,18 +29,24 @@ while True:
             cv.imshow('Landmarked frame',frame)
             flatLandmark=np.array([],float)
             # since the trained data of landmarks were normalized with min-max, hence the input of production/test data should be min-max normalized also
-            x0 = min([landmark.x for landmark in landmarks])
-            y0 = min([landmark.y for landmark in landmarks])
-            z0 = min([landmark.z for landmark in landmarks])
-            x1 = max([landmark.x for landmark in landmarks])
-            y1 = max([landmark.y for landmark in landmarks])
-            z1 = max([landmark.z for landmark in landmarks])
-
+            normx0 = min([landmark.x for landmark in landmarks])
+            normy0 = min([landmark.y for landmark in landmarks])
+            normz0 = min([landmark.z for landmark in landmarks])
+            normx1 = max([landmark.x for landmark in landmarks])
+            normy1 = max([landmark.y for landmark in landmarks])
+            normz1 = max([landmark.z for landmark in landmarks])
+            scalexAxis = (normx1-normx0)
+            scaleyAxis = (normy1-normy0)
+            scalezAxis = (normz1-normz0)
             for idx,landmark in enumerate(landmarks):
-                print(flatLandmark)
-                x[0,idx*3+0]=landmark.x
-                x[0,idx*3+1]=landmark.y
-                x[0,idx*3+2]=landmark.z
+                # print(flatLandmark)
+                scaledX = landmark.x*scalexAxis
+                scaledY = landmark.y*scaleyAxis
+                scaledZ = landmark.z*scalezAxis
+
+                x[0,idx*3+0]=scaledX
+                x[0,idx*3+1]=scaledY
+                x[0,idx*3+2]=scaledZ
 
                 # flatLandmark=np.append(flatLandmark,landmark.y)
                 # flatLandmark=np.append(flatLandmark,landmark.z)
