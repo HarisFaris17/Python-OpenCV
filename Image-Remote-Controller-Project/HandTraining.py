@@ -2,6 +2,7 @@ import pickle
 import numpy as np
 trainingDirectory = './Image-Remote-Controller-Project/training'
 dataTrainingDirectory = '/data.txt'
+modelHandDirectory = '/model_hand.sav'
 
 # if the script run and not imported
 if __name__=='__main__':
@@ -23,4 +24,4 @@ if __name__=='__main__':
     print([classifier.predict(x_test),y_test])
     print(classifier.score(x_test,y_test))
     # dump will save the obj to the file directory. The file will be created (if there is no such file before) and the file will be opened as write byte. This have to be wb, since the obj (classifier) is bytes not texts
-    pickle.dump(classifier,open(f'{trainingDirectory}/model_hand.sav','wb'))
+    pickle.dump(classifier,open(trainingDirectory+modelHandDirectory,'wb'))
